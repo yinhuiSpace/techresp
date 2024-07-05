@@ -5,4 +5,4 @@
 
 
 [<i class="iconfont icon-github"></i> Github](https://github.com/yinhuiSpace/techresp)
-[马上开始<i class="iconfont icon-down"></i>](#main)
+[马上开始<i class="iconfont icon-down"></i>](README.md)

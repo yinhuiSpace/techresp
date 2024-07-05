@@ -7,21 +7,68 @@
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="stylesheet" href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" type='text/css' media='all' />
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar.min.css" />
 </head>
 <body>
+  <style type="text/css">
+    .content {
+      overflow: auto;
+    }
+    </style>
+    
   <div id="app"></div>
   <script>
     window.$docsify = {
       name: '编程知识库',
       repo: 'https://github.com/yinhuiSpace/techresp',
       coverpage: true,
+      onlyCover: true,
       loadSidebar: true,
+      loadNavbar: true,
+      auto2top: true,
+      copyCode: {
+          buttonText: 'Copy',
+          errorText: 'Error',
+         successText: 'OK!'
+     },
       search: {
-        path: 'auto',
+        paths: 'auto',
         placeholder: '搜索',
         noData: '找不到相应文章',
         depth: 3
-      }
+      },
+      count:{
+        countable:true,
+        fontsize:'0.9em',
+        color:'rgb(90,90,90)',
+        language:'chinese'
+      },
+      mergeNavbar: true,
+      // 回到顶部
+      scrollToTop: {
+        auto: true,
+        text: '🔼',
+        right: 12,
+        bottom: 52,
+        offset: 25
+      },
+      footer: {
+        copy: '<span id="sitetime"></span> <br/> <span>Copyright &copy; 2024 &nbsp 💖 &nbsp</span>',
+        auth: ' <strong><a href="https://space.bilibili.com/3546706983520588/" target="_blank">心流coding</a></strong>',
+        pre: '<hr/>',
+        style: 'font-size: 18px; text-align: center;',
+      },
+      subMaxLevel: 3,
+      sidebarDisplayLevel: 0,
+      // 分页导航组件引入
+  pagination: {
+    previousText: '上一章节',
+    nextText: '下一章节',
+    crossChapter: true,
+    crossChapterText: true,
+  },
     }
   </script>
   <!-- Docsify v4 -->
@@ -31,5 +78,106 @@
   <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
   <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/components/prism-java.min.js"></script>
+  <script src="//unpkg.com/docsify-footer-enh/dist/docsify-footer-enh.min.js"></script>
+  <!-- 回到顶部功能 -->
+  <script src="https://cdn.jsdelivr.net/gh/wugenqiang/NoteBook@master/plugin/jquery.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/wugenqiang/NoteBook@master/plugin/jquery.goup.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $.goup({
+        trigger: 50,
+        bottomOffset: 52,
+        locationOffset: 25,
+        //title: 'TOP',
+        titleAsText: true
+      });
+    });
+  </script>
+    <!-- 添加网站运行时间统计 -->
+  <script language=javascript>
+  function siteTime() {
+     window.setTimeout("siteTime()", 1000);
+     var seconds = 1000;
+     var minutes = seconds * 60;
+     var hours = minutes * 60;
+     var days = hours * 24;
+     var years = days * 365;
+     var today = new Date();
+     var todayYear = today.getFullYear();
+     var todayMonth = today.getMonth() +  1;
+     var todayDate = today.getDate();
+     var todayHour = today.getHours();
+     var todayMinute = today.getMinutes();
+     var todaySecond = today.getSeconds();
+     /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+     year - 作为date对象的年份，为4位年份值
+     month - 0-11之间的整数，做为date对象的月份
+     day - 1-31之间的整数，做为date对象的天数
+     hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+     minutes - 0-59之间的整数，做为date对象的分钟数
+     seconds - 0-59之间的整数，做为date对象的秒数
+     microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        /* 建站时间 */
+        var t1 = Date.UTC(2024, 07, 04, 00, 00, 00); 
+         var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+         var diff = t2 - t1;
+         var diffYears = Math.floor(diff / years);
+         var diffDays = Math.floor((diff / days) - diffYears * 365);
+         var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+         var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+         var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+         document.getElementById("sitetime").innerHTML = " 本站已安全运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分 " + diffSeconds + " 秒 ";
+  }
+  siteTime();
+  </script>
+  <!--使用 Gitter 实现一个 IM 即时通讯聊天室功能-->
+<script>
+   ((window.gitter = {}).chat = {}).options = {
+     room: 'zxiaosi/blogshare'
+   };
+   </script>
+   <!-- Markdown 引用样式美化 -->
+  <script src="https://unpkg.com/docsify-plugin-flexible-alerts"></script>
+ 
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-java.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-cpp.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-css.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-powershell.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-sql.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-properties.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/matlab.min.js"></script>
+
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+  <script src="//cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/click_heart.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+  <!-- 复制提醒 -->
+      <script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
+      <script>
+        document.body.oncopy = function () {
+          swal("复制成功 ",
+                "若要转载或引用请务必保留原文链接，并申明来源。",
+                "success"); };
+      </script>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <!-- 离线模式 -->
+  <script>
+      if (typeof navigator.serviceWorker !== 'undefined') {
+        navigator.serviceWorker.register('sw.js')
+      }
+    </script>
+    <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+
+    <!-- plugins -->
+    <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
+    <!-- 分页导航插件引入 -->
+    <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
 </body>
 </html>
